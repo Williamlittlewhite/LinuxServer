@@ -1,0 +1,23 @@
+#定义变量
+src=sub.o add.o mult.o div.o main.o
+target = app
+#AR : 归档维护程序的名称，默认值为 ar
+#CC : C 编译器的名称，默认值为 cc
+#CXX : C++ 编译器的名称，默认值为 g++
+#$@ : 目标的完整名称
+#$< : 第一个依赖文件的名称
+#$^ : 所有的依赖文件
+$(target):$(src)
+	$(CC) $^ -o $(target)
+
+sub.o:sub.c
+	gcc -c sub.c -o sub.o
+
+add.o:add.c
+	gcc -c add.c -o add.o
+mult.o:mult.c
+	gcc -c mult.c -o mult.o
+div.o:div.c
+	gcc -c div.c
+main.o:main.c
+	gcc -c main.c

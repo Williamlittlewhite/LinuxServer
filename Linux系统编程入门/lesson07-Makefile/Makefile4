@@ -1,0 +1,11 @@
+#定义变量
+src=sub.o add.o mult.o div.o main.o
+target = app
+
+$(target):$(src)
+	$(CC) $^ -o $(target)
+#%: 通配符，匹配一个字符串
+
+%.o:%.c
+	$(CC) -c $<  -o $@
+
