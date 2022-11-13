@@ -68,7 +68,7 @@ int main()
         sigemptyset(&act.sa_mask);
         
         sigaction(SIGCHLD,&act,NULL);
-        //注册完信号捕捉以后，接触阻塞
+        //注册完信号捕捉以后，解除阻塞
         sigprocmask(SIG_UNBLOCK,&set,NULL);
 
         while (1)
