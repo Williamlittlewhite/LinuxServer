@@ -1,4 +1,3 @@
-
 /*
     标准C库的函数
     #include <stdio.h>
