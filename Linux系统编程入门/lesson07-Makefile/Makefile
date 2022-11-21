@@ -2,7 +2,8 @@
 # add.c mult.c div.c sub.c main.c
 src=$(wildcard ./*.c )  #功能：获取指定目录下指定类型的文件列表
 #$(wildcard PATTERN...)
-objs=$(patsubst %.c,%.o,$(src))#功能：查找 <pattern> 中的单词(单词以“空格”、“ Tab ”或“回车”“换行”分隔)是否符合模式 <pattern>，如果匹配的话，则以 <test> 替换。
+objs=$(patsubst %.c,%.o,$(src))#功能：查找 <pattern> 中的单词(单词以“空格”、“ Tab ”或“回车”“换行”分隔)是否符合模式 <pattern>，
+#如果匹配的话，则以 <text> 替换。
 #$(patsubst <pattern>,<replacement>,<text>)
 target = app
 

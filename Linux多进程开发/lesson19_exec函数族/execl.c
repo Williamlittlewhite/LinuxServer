@@ -27,9 +27,10 @@ int main()
         //子进程
         // execl("hello","hello",NULL);
         execl("/bin/ps","ps","aux",NULL);
-        printf("I am child process, pid = %d\n",getpid());
+        printf("I am child process, pid = %d\n",getpid()); //这句话不会执行
     }
 
+    //这段也不会执行
     for(int i = 0; i < 3; ++i)
     {
         printf("i = %d, pid = %d\n",i,getpid());

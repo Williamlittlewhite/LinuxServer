@@ -12,7 +12,7 @@ char *getcwd(char *buf, size_t size);
         - buf:  存储的路径，指向的是一个数组(传出参数)
         - size: 数组的大小
     返回值:
-        返回的指向的一块内存，这个数据就是第一个参数
+        返回值指向一块内存，这个数据就是第一个参数
 */
 #include<unistd.h>
 #include<stdio.h>
@@ -43,7 +43,6 @@ int main()
     }
     close(fd);
 
-    //获取当前工作目录
     //获取当前的工作目录
     char buf1[128];
     getcwd(buf,sizeof(buf));

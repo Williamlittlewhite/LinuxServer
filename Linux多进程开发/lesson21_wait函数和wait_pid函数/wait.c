@@ -47,7 +47,7 @@ int main()
                 }
                 if(WIFSIGNALED(st)){
                     //是不是异常终止
-                    printf("被哪个信号干掉了: %d\n",WTERMSIG(st));
+                    printf("哪个进程被干掉了: %d\n",WTERMSIG(st));
                 }
                 printf("child die, pid = %d\n",ret);
                 sleep(1);
@@ -60,6 +60,8 @@ int main()
             printf("child, pid = %d\n",getpid());
             sleep(1);
         }
+        // printf("child, pid = %d\n",getpid());
+        // sleep(1);
         exit(0);
 
     }

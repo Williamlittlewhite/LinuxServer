@@ -9,7 +9,7 @@
                 - F_DUPFD : 复制文件描述符,复制的是第一个参数fd，得到一个新的文件描述符（返回值）
                     int ret = fcntl(fd,F_DUPFD);
                 - F_GETFL: 获取指定的文件描述符文件状态的flag
-                    获取的flag和我们通过oepn函数传递的flag是一个东西
+                    获取的flag和我们通过open函数传递的flag是一个东西
                 - F_SETFL: 设置文件描述符文件状态flag
                     必选项:O_RDONLY,O_WRONLY,O_RDWR 不可以被修改
                     可选项:O_APPEND, O_NONBLOCK 可以被修改
