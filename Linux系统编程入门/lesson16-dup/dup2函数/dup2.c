@@ -43,8 +43,8 @@ int main()
     }
 
     //通过fd1去写数据，实际操作的是1.txt，而不是2.txt
-    char* str = "Hello, dup2";
-    int len = write(fd1,str,strlen(str));
+    char* str = "Hello, dup223";
+    int len = write(fd2,str,strlen(str));
     if(len == -1)
     {
         perror("write");

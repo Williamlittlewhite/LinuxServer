@@ -36,7 +36,7 @@ int main()
         close(fd[1]);
         //从管道中读取
         char buf[1024] = {0};
-        int len = -1;;
+        int len = -1;
         while(len = read(fd[0],buf,sizeof(buf)-1) > 0)
         {
             //过滤数据输出
@@ -54,8 +54,9 @@ int main()
         //文件描述符的重定向 stdout_fileno -> fd[1]
         dup2(fd[1],STDOUT_FILENO);
         // 执行 ps aux
-        execlp("ps","ps","aux",NULL);
-        perror("execlp");
+        int ret = execlp("ps","ps","aux",NULL);
+        if(ret == -1)
+            perror("execlp");
         exit(0);
     }
     else{

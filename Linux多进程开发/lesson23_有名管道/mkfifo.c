@@ -13,7 +13,6 @@
         返回值:
             成功返回0,失败返回-1，设置errno
 */
-
 #include<unistd.h>
 #include<sys/types.h>
 #include<sys/stat.h>
