@@ -2,7 +2,7 @@
 #include <sys/time.h>
 
 int setitimer(int which, const struct itimerval *new_value,struct itimerval *old_value);
-    -功能:设置定时器(闹钟),可以替代alarm函数，精度微妙us,可以实现周期性定时
+    -功能:设置定时器(闹钟),可以替代alarm函数，精度微秒us,可以实现周期性定时
     -参数:
         -which : 定时器以什么时间计时
          ITIMER_REAL:真实时间，时间到达，发送SIGALARM信号  常用
@@ -11,8 +11,8 @@ int setitimer(int which, const struct itimerval *new_value,struct itimerval *old
 
         -new_value:设置定时器的属性
             struct itimerval { //定时器的结构体
-               struct timeval it_interval;  //每个阶段的时间,间隔时间
-               struct timeval it_value;    //延迟多长时间执行定时器
+               struct timeval it_interval;  //每个阶段的定时时间(间隔时间)
+               struct timeval it_value;    //延迟多长时间开始执行定时器
            };
 
            struct timeval { //时间的结构体

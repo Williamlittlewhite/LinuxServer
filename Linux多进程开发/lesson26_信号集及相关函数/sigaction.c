@@ -19,7 +19,7 @@ struct sigaction {
     void     (*sa_sigaction)(int, siginfo_t *, void *);
     // 临时阻塞信号集,在信号捕捉函数执行过程中,临时阻塞某些信号。
     sigset_t   sa_mask;
-    //使用哪一个信号处理对捕捉到的信号处理
+    //使用哪一个信号处理(前两个函数指针之一) 对捕捉到的信号处理
     //这个值可以是0,表示使用sa_handler,也可以是SA_SIGINFO表示sa_sigaction
     int  sa_flags;
     //被废弃掉了

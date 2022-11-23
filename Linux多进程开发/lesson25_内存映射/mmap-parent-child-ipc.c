@@ -16,10 +16,10 @@
             flags:
                 MAP_SHARED:映射区的数据会自动和磁盘文件进行同步，进程间通信，必须要设置这个选项
                 MAP__PRIVATE:不同步，内存映射区的数据改变了，对原来的文件不会修改，会重新创建一个新的文件。(copy on write) 
-            fd:需要映射的文件的文件描述符
+            fd:需要映射的文件的文件描述符  -1为不用文件的匿名映射，常用于有关系进程之间的通信
                 通过oepn得到，open的是一个磁盘文件
                 注意：文件的大小不能为0，open指定的权限不能与prot参数有冲突
-                    prot:PROT_READ                  open:只读/只写 
+                    prot:PROT_READ                  open:只读/读写 
                     prot:PROT_READ | PROT_WRITE     open:读写
             offset:偏移量，一般不用。必须指定的是4k的整数倍，0表示不偏移
         返回值:返回创建的内存的首地址
@@ -51,7 +51,7 @@
     注意:内存映射区通信，是非阻塞。
 
 */
-//作业:使用内存映射实现没有关系的进程间的通信。
+//使用内存映射实现父子进程间的通信。
 #include<stdio.h>
 #include<sys/mman.h>
 #include<fcntl.h>
@@ -79,7 +79,7 @@ int main(){
         //父进程
         wait(NULL);
         char buf[64];
-        stpcpy(buf,(char*) ptr);
+        strcpy(buf,(char*) ptr);
         printf("read data : %s\n",buf);
         
     }

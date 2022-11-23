@@ -31,7 +31,7 @@ void myalarm(int num)
 }
 int main()
 {
-    //注册信号捕捉,一定要在
+    //注册信号捕捉,一定要在产生信号之前
     // signal(SIGALRM,SIG_IGN);
     // signal(SIGALRM,SIG_DFL);
     //void (*sighandler_t)(int); 函数指针,int类型的参数表示捕捉到信号的值

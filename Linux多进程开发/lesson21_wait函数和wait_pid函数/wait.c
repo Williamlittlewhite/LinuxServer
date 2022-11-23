@@ -55,13 +55,13 @@ int main()
     }else if(pid == 0)
     {
         //子进程
-        while (1)
-        {
-            printf("child, pid = %d\n",getpid());
-            sleep(1);
-        }
-        // printf("child, pid = %d\n",getpid());
-        // sleep(1);
+        // while (1)
+        // {
+        //     printf("child, pid = %d\n",getpid());
+        //     sleep(1);
+        // }
+        printf("child, pid = %d\n",getpid());
+        sleep(1);
         exit(0);
 
     }

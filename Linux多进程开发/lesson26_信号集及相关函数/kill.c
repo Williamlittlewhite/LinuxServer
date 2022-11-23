@@ -24,7 +24,7 @@
         kill(getpid(),sig);
     
     void abort(void);
-        - 功能 : 发送SIGABRT信号给当前的进,杀死当前进程
+        - 功能 : 发送SIGABRT信号给当前的进程,杀死当前进程
         kill(getpid(),SIGABRT);
 
 */
