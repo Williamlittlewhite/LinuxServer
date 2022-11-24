@@ -14,12 +14,12 @@ int execlp(const char *file, const char *arg, ...);
         只有调用失败时候，才会有返回值，返回-1并设置errno
 
 int execv(const char* path,char *const argv[]);
-argv是需要的参数的一个字符串数组
-char *argv[] = {"ps","aux",NULL};
-execv("/bin/ps",argv);
+    argv是需要的参数的一个字符串数组
+    char *argv[] = {"ps","aux",NULL};
+    execv("/bin/ps",argv);
 
 int execve(const char* filename, char* const argv[],char* const envp[]);
-char* envp[] = {"/home/williamwhites/","/home/bbb","/home/aaa"};
+    char* envp[] = {"/home/williamwhites/","/home/bbb","/home/aaa"};
 */
 
 #include<unistd.h>

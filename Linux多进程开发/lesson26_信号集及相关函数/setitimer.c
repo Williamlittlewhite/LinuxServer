@@ -6,7 +6,8 @@ int setitimer(int which, const struct itimerval *new_value,struct itimerval *old
     -参数:
         -which : 定时器以什么时间计时
          ITIMER_REAL:真实时间，时间到达，发送SIGALARM信号  常用
-         ITIMER_VIRTUAL:用户时间,时间到达,发送SIGVTALARM
+         ITIMER_VIRTUAL:用户时间,执行用户自己写的代码RING3级别下，0~3G虚拟内存空间时间,时间到达,发送SIGVTALARM
+         内核时间表示在虚拟空间3G~4G最高RING0优先级系统调用的时间
          ITIMER_PROF:以该进程在用户态和内核态下所消耗的时间来计算,时间到达,发送SIGPROF
 
         -new_value:设置定时器的属性

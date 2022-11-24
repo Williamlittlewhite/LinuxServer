@@ -8,7 +8,6 @@
     子进程将标准输出 stdout_fileno 重定向到管道的写端  dup2()
 */
 
-
 #include<unistd.h>
 #include<sys/types.h>
 #include<stdio.h>
@@ -63,6 +62,5 @@ int main()
         perror("fork");
         exit(0);
     }
-
-
+    printf("到底执行不执行！");
 }

@@ -14,7 +14,7 @@ pid_t waitpid(pid_t pid, int *wstatus, int options);
     返回值:
         >0: 返回子进程的id
         =0： options = WNOHANG，表示还有子进程
-        =-1：错误，或者没有子进程了
+        =-1：调用函数失败，或者没有子进程了
 
 */
 #include<sys/types.h>

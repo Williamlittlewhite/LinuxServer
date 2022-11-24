@@ -19,11 +19,11 @@ void myfunc(int num)
 {
     printf("捕捉到的信号:%d\n",num);
     // 回收子进程PCB的资源
-    // while (1)
+    // while (1)  while循环防止由于未决信号集只能够保存一个SIGCHILD信号，防止由于SIGCHILD信号冲突忽略了信号产生少回收子进程的问题
     // {
     //     wait(NULL);
     // } 不推荐这么写
-    while (1)
+    while (1)  //这么写 是可以设置主进程不堵塞 让父进程继续进行！
     {
         int ret = waitpid(-1,NULL,WNOHANG); //非阻塞
         if(ret > 0)

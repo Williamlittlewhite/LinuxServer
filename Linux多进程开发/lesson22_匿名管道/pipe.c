@@ -58,7 +58,7 @@ int main()
             char buf[1024] = {0};
             //向管道中写入数据
             char*str = "hello, i am child\n";
-            write(pipefd[1],str,strlen(str));
+            write(pipefd[1],str,strlen(str)); //这里没有写入数组结束符0是因为管道中会有0
             sleep(1);
 
             // int len = read(pipefd[0],buf,sizeof(buf));

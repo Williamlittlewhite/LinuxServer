@@ -42,7 +42,7 @@ int shmctl(int shmid, int cmd, struct shmid_ds *buf);
             - IPC_SET: 设置共享内存的状态
             - IPC_RMID: 标记共享内存被销毁
         - buf: 需要设置或者获取的共享内存的属性信息
-            - IPC_STAT : buf存储数据
+            - IPC_STAT : buf存储获取的共享内存的属性信息
             - IPC_SET: buf中需要初始化数据,设置到内核中
             - IPC_RMID: 没有用,NULL
 key_t ftok(const char *pathname, int proj_id);
