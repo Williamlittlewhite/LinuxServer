@@ -10,7 +10,7 @@ int shmget(key_t key, size_t size, int shmflg);
         - shmflg:属性
             - 访问权限
             - 附加属性: 创建/判断共享内存是不是存在
-                -创建:IPC_CREATE
+                -创建:IPC_CREATE,必须要有
                 -判断共享内存是否存在: IPC_EXCL, 需要和IPC_CREAT一起使用
                     IPC_CREATE | IPC_EXCL | 0664
     - 返回值

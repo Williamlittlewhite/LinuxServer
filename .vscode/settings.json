@@ -5,6 +5,10 @@
         "unistd.h": "c",
         "mman.h": "c",
         "stdio.h": "c",
-        "pthread.h": "c"
+        "pthread.h": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c",
+        "string.h": "c"
     }
 }

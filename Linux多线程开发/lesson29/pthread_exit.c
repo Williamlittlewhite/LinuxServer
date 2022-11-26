@@ -10,6 +10,9 @@
         功能:比较两个线程ID是否相等
         不同的操作系统，pthread_t类型的实现不一样，有的是无符号的长整型，有的是使用
         结构体去实现的。
+
+    pthread_t pthread_self(void);
+        功能:返回当前线程的id
 */
 #include<stdio.h>
 #include<pthread.h>

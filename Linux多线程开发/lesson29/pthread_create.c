@@ -14,7 +14,7 @@
             - arg : 给第三个参数使用,传参
         返回值:
             成功:0
-            失败:返回错误号。这个错误号和之前的errno不太一样。
+            失败:返回错误号。这个错误号和之前的errno不一样。
             获取错误号的信息: char *strperror(int errnum)
 
         第三方库:gcc pthread_create.c -o create -pthread

@@ -4,7 +4,7 @@
 #include<string.h>
 int main()
 {
-    //1.获取一个共享内存
+    //1.获取一个共享内存，且此时第二个参数无所谓<4096即可，第三个参数必须是IPC_CREAT
     int shmid  = shmget(100,4096,IPC_CREAT);
     printf("shmid : %d\n",shmid);
     //2.和当前进程进行关联

@@ -48,7 +48,7 @@ void* customer(void* arg)
             free(tmp);
             pthread_mutex_unlock(&mutex);    
             usleep(100); 
-        }else  //如果没有else会因为没有解锁而死锁
+        }else  //如果没有else会因为没有解锁而死锁，如果这么写会浪费资源，因为没有生产出数据也会在这里循环
             pthread_mutex_unlock(&mutex);  
        
     }

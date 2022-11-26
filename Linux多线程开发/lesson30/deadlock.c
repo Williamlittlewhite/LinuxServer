@@ -36,7 +36,7 @@ void* sellticket(void* arg){
     {
         //加锁
         pthread_mutex_lock(&mutex);
-        pthread_mutex_lock(&mutex);
+        // pthread_mutex_lock(&mutex);死锁重复加锁
         if(tickets > 0)
         {
             usleep(3000);
@@ -49,7 +49,7 @@ void* sellticket(void* arg){
             pthread_mutex_unlock(&mutex);
             break;
         }
-        //解锁
+        //解锁 死锁忘记解锁 
         pthread_mutex_unlock(&mutex);   
     }
 

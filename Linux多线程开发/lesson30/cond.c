@@ -55,7 +55,6 @@ void* customer(void* arg)
 {
     while (1)
     {
-        //保存头结点的指针
         pthread_mutex_lock(&mutex);
         if(head)
         {
@@ -69,7 +68,7 @@ void* customer(void* arg)
         }
         else{
             //没有数据，需要等待
-            //当下面的函数阻塞时，会对互斥锁进行解锁；当不阻塞的时候，继续向下执行，会重新加锁，所以不会死锁。
+            //当下面的函数阻塞时，会对互斥锁进行解锁；当不阻塞的时候，继续向下执行，会重新解锁，所以不会死锁。
             pthread_cond_wait(&cond,&mutex);
             pthread_mutex_unlock(&mutex);  
         }

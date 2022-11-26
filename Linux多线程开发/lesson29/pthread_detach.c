@@ -6,7 +6,7 @@
             1. 不能多次分离,会产生不可预料的行为。
             2. 不能去连接一个已经分离的进程,如果去连接会报错。
             参数：需要分离的线程的ID
-            返回值: 返回错误号
+            返回值: 分离失败返回错误号，成功返回0
 */
 #include<stdio.h>
 #include<pthread.h>
@@ -41,7 +41,7 @@ int main()
         char* errstr = strerror(ret);
         printf("error2 : %s\n",errstr);
     }
-    //设置分离后，对分离的子线程进行连接 pthread_join()
+    //设置分离后，对分离的子线程进行连接 pthread_join() 会报错
     ret = pthread_join(tid,NULL);
     if(ret)
     {

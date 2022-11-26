@@ -73,7 +73,7 @@ int main()
     pthread_join(tid1,NULL);
     pthread_join(tid2,NULL);
     pthread_join(tid3,NULL);
-
+    
     pthread_exit(NULL); //退出主线程
 
     //释放互斥量资源

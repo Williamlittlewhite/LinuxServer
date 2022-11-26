@@ -74,6 +74,7 @@ int main()
     }
 
     // pthread_mutex_destroy(&mutex);
+    //分离后的线程销毁读写锁(仅仅针对读写锁)也不会影响很神奇
     pthread_rwlock_destroy(&rwlock);
     pthread_exit(NULL);
     return 0;
