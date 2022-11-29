@@ -27,11 +27,11 @@ int main()
         return -1;
     }
 
-    int num = 0;
+    //int num = 0;
     while (1)
     {
         char sendBuf[1024] = {0};
-        sprintf(sendBuf,"send data %d",num);
+        fgets(sendBuf,sizeof sendBuf, stdin);
 
         write(fd,sendBuf,strlen(sendBuf)+1);
 
@@ -48,9 +48,9 @@ int main()
             printf("服务器已经断开连接...\n");
             break;
         }
-        num++;
+        //num++;
         // sleep(1); 
-        usleep(1000);//针对epoll实验
+        // usleep(1000);//针对epoll实验
     }
     
     close(fd);
