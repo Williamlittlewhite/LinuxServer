@@ -27,7 +27,7 @@ int main()
     while(1)
     {
         tmp = rdset;
-        //调用selecti系统函数，让内核帮检测哪些文件描述符有数据
+        //调用select系统函数，让内核帮检测哪些文件描述符有数据
         int ret = select(maxfd+1,&tmp,NULL,NULL,NULL);
         if(ret == -1){
             perror("select");
@@ -39,7 +39,6 @@ int main()
         }
         else if(ret > 0)
         {
-            
             //说明检测到了有文件描述符对应的缓冲区的数据发生了改变
             if(FD_ISSET(lfd,&tmp))
             {

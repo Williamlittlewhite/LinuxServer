@@ -14,7 +14,7 @@ int main()
         exit(-1);
     }
 
-    // 2.客户端绑定本地的ip和端口
+    // 2.客户端绑定本地的ip（本地网络地址）和端口（服务器指定广播端口）
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(9999);
@@ -26,12 +26,6 @@ int main()
         perror("bind");
         exit(-1);
     }
-    //加入到多播组
-    struct ip_mreq op;
-    inet_pton(AF_INET,"192.168.17.131",&op.imr_multiaddr.s_addr);
-    op.imr_interface.s_addr = INADDR_ANY;
-
-    setsockopt(fd,IPPROTO_IP,IP_ADD_MEMBERSHIP,&op,sizeof op);
 
     //3.通信
     while (1)

@@ -51,6 +51,7 @@ void* working(void* arg)
 }
 
 struct sockInfo sockinfos[128];
+
 int main()
 {
     //初始化数据
@@ -111,7 +112,7 @@ int main()
         }
       
         pinfo->fd = cfd;
-        printf("传参前的fd:%d\n",pinfo->fd);
+        // printf("传参前的fd:%d\n",pinfo->fd);
         memcpy(&pinfo->cliaddr,&cliaddr,len);
         //创建子线程
         pthread_create(&pinfo->tid,NULL,working,pinfo);

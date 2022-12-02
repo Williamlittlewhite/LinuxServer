@@ -4,6 +4,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include<sys/wait.h>
+#include<signal.h>
 #include<errno.h>
 void recycleChild(int arg)
 {
@@ -91,7 +92,7 @@ int main()
             inet_ntop(AF_INET,&cliaddr.sin_addr.s_addr,cliIP,sizeof cliIP);
             unsigned short cliport = ntohs(cliaddr.sin_port);   
 
-            printf("client ip is : %s, prot is %d\n",cliIP,cliport);
+            printf("client ip is : %s, port is %d\n",cliIP,cliport);
 
             //接受客户端发来的数据
             char recvBuff[1024] = {0};

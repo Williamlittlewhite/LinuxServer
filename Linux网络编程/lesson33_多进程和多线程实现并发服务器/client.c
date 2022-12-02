@@ -47,8 +47,8 @@ int main()
         }
         else if(len > 0)
         {
-            printf("recv server data : %s\n",recvBuf);
-        }
+           printf("recv server data : %s\n",recvBuf);
+        } 
         else if(len == 0)
         {   
             //表示服务器端断开了连接

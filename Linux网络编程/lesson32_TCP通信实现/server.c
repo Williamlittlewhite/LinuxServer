@@ -51,7 +51,7 @@ int main()
 
   
     //5.获取数据处理后发送给客户端
-      char recvBuf[1024] = {0};
+    char recvBuf[1024] = {0};
     while(1)
     {
         
