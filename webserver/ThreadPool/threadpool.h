@@ -26,7 +26,7 @@ public:
 };
 
 template<typename T>
-threadpool<T>::threadpool(int thread_number = 8, int max_requests = 10000)
+threadpool<T>::threadpool(int thread_number, int max_requests)  //模板类的实现不能携带默认参数
 :m_thread_number(thread_number),m_max_requests(max_requests),m_stop(false),m_threads(NULL)
 {
     if((thread_number <= 0) || (max_requests <= 0))

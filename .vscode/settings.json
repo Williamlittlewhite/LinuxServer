@@ -12,6 +12,9 @@
         "string.h": "c",
         "inet.h": "c",
         "exception": "cpp",
-        "*.tcc": "cpp"
-    }
+        "*.tcc": "cpp",
+        "limits": "cpp",
+        "type_traits": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

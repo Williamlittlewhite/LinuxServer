@@ -27,6 +27,8 @@ void addsig(int sig, void(*handler)(int))
 extern void addfd(int epollfd, int fd, bool oneshot);
 //从epoll中删除文件描述符
 extern void removefd(int epollfd, int fd);
+//从epoll中修改文件描述符
+extern void modfd(int epollfd, int fd, int ev);
 int main(int argc,char** argv)
 {
     if(argc <= 1)
@@ -67,7 +69,7 @@ int main(int argc,char** argv)
     struct sockaddr_in saddr;
     saddr.sin_family = AF_INET;
     saddr.sin_addr.s_addr = INADDR_ANY;
-    saddr.sin_port = htons(9999);
+    saddr.sin_port = htons(port);
     int ret = bind(listenfd,(struct sockaddr*)&saddr,sizeof saddr);
     if(ret == -1)
     {
@@ -76,13 +78,68 @@ int main(int argc,char** argv)
     }
 
     //监听
-    listen(listenfd,5);
+    listen(listenfd,8);
 
     //创建epoll对象和事件数组
     epoll_event events[MAX_EVENT_NUMBER];
-    int epollfd = epoll_create1(1000);
+    int epollfd = epoll_create(1000);
 
     //将监听的文件描述符添加到epoll对象中
+    addfd(epollfd,listenfd,false);
+    http_conn::m_epollfd = epollfd;
 
+    while(1)
+    {
+        int num = epoll_wait(epollfd,events,MAX_EVENT_NUMBER,-1);
+        if(num == -1 && errno != EINTR){  //系统调用被捕获信号中断时候会设置EINTR错误 需要特殊处理
+            printf("epoll failure\n");
+            break;
+        }
+        //循环遍历事件数组
+        for(int i = 0; i < num; ++i)
+        {
+            int sockfd = events[i].data.fd;
+            if(sockfd == listenfd){
+                //有客户端连接进来
+                struct sockaddr_in client_addr;
+                socklen_t client_addr_len = sizeof client_addr;
+                int connfd = accept(listenfd,(struct sockaddr*)&client_addr,&client_addr_len);
+                if(connfd == -1)
+                {
+                    perror("connect");
+                    exit(-1);
+                }
+                if(http_conn::m_user_count >= MAX_FD)
+                {
+                    //目前连接数满了
+                    //给客户端写一个信息:服务器内部正在忙碌
+                    close(connfd);
+                    continue;
+                }
+                //将新的客户的数据接受并且更新后，放到数组中
+                users[connfd].update(connfd,client_addr);   
+            }else if(events[i].events & (EPOLLRDHUP | EPOLLHUP | EPOLLERR))
+            {
+                //对方异常断开或者发生错误等事件
+                users[sockfd].close_conn();
+            }else if(events[i].events & EPOLLIN)
+            {
+                if(users[sockfd].read())
+                    //一次性读完所有数据
+                    pool->append(users+sockfd);
+                else
+                    users[sockfd].close_conn();
+            }else if(events[i].events & EPOLLOUT)
+            {
+                if(!users[sockfd].write())
+                    //一次性写完所有数据
+                    users[sockfd].close_conn();
+            }
+        }
+    }
+    close(epollfd);
+    close(listenfd);
+    delete[] users;
+    delete pool;
     return 0;
 }
