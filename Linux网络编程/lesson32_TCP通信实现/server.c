@@ -8,7 +8,7 @@
 int main()
 {
     //1.创建socket(用于监听的套接字)
-    int lfd = socket(AF_INET,SOCK_STREAM,0);
+    int lfd = socket(PF_INET,SOCK_STREAM,0);
     if(lfd == -1)
     {
         perror("socket");

@@ -10,6 +10,7 @@
 #include <sys/stat.h>
 #include <sys/mman.h>
 #include <stdarg.h>
+#include <string.h>
 #include <errno.h>
 #include "../ThreadPool/locker.h"
 #include <sys/uio.h>
@@ -65,6 +66,12 @@ private:
     
     int m_check_index; //当前正在分析的字符在读缓冲区的位置
     int m_start_line; //当前正在解析的行的起始位置
+    char* m_url; //请求目标文件的文件名
+    char* m_version; //协议版本，支持HTTP1.1
+    char* m_host //主机名
+    int m_content_length;
+    bool m_linger; //HTTP请求是否保持连接
+    METHOD m_method; //请求方法
 
     CHECK_STATE m_check_state; //主状态机当前所处的状态
 
@@ -75,6 +82,11 @@ private:
     HTTP_CODE parse_contents(char* text); //解析请求内容
 
     LINE_STATUS parse_line(); //解析行
+    HTTP_CODE do_request(); //  具体处理
+    char* get_line()  //获取一行数据
+    {
+        return m_read_buf + m_start_line;
+    }
 };
 
 

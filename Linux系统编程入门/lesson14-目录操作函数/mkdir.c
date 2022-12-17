@@ -6,7 +6,7 @@ int mkdir(const char *pathname, mode_t mode);  有x权限才能够进入该目�
     作用：创建一个目录
     参数:
         pathname:创建的目录的路径
-        mode:权限，8进制数
+        mode:权限，8进制数,会与掩码相与遮掉某些权限
     返回值：
         成功返回0，失败返回-1
 */
