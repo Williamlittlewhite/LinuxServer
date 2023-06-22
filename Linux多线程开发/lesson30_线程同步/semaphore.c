@@ -68,6 +68,7 @@ void* producer(void* arg)
     }
     return NULL;
 }
+
 void* customer(void* arg)
 {
     while (1)
