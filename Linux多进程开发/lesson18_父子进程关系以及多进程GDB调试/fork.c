@@ -15,7 +15,7 @@ pid_t fork(void);
     区别：
         1.fork()函数的返回值不同
             父进程中: >0 返回的是子进程的ID
-            子进程中: =0 
+            子进程中: =0
         2.pcb中的一些数据
             当前进程的id pid
             当前进程的父进程的id ppid
@@ -24,43 +24,44 @@ pid_t fork(void);
         某些状态下：子进程刚被创建出来，还没有执行任何的写数据的操作
             - 用户区的数据
             - 文件描述符表
-    
+
     父子进程对变量是不是共享的？
         - 刚开始的时候，是一样的，共享的。如果修改了数据，不共享了。
         - 读时共享（子进程被创建，两个进程没有进行任何写的操作），写时拷贝。
 */
 #include <sys/types.h>
 #include <unistd.h>
-#include<stdio.h>
+#include <stdio.h>
 int main()
 {
     int num = 10;
-    //创建子进程
+    // 创建子进程
     pid_t pid = fork();
 
-    //判断是父进程还是子进程
-    if(pid > 0){
-        //如果大于0，返回的是创建的子进程的进程号  是父进程的返回值
-        printf("pid : %d\n",pid);
-        printf("I am parent process, pid : %d, ppid : %d\n",getpid(),getppid());
-        printf("parent num : %d\n",num);
-        num += 10;
-        printf("parent num : %d\n",num);
-    }
-    else if(pid == 0)  //等于0是子进程的返回值
+    // 判断是父进程还是子进程
+    if (pid > 0)
     {
-        //当前是子进程
-        printf("I am child process, pid : %d, ppid : %d\n",getpid(),getppid());
-         printf("child num : %d\n",num);
+        // 如果大于0，返回的是创建的子进程的进程号  是父进程的返回值
+        printf("pid : %d\n", pid);
+        printf("I am parent process, pid : %d, ppid : %d\n", getpid(), getppid());
+        printf("parent num : %d\n", num);
+        num += 10;
+        printf("parent num : %d\n", num);
+    }
+    else if (pid == 0) // 等于0是子进程的返回值
+    {
+        // 当前是子进程
+        printf("I am child process, pid : %d, ppid : %d\n", getpid(), getppid());
+        printf("child num : %d\n", num);
         num += 100;
-        printf("chid num : %d\n",num);
+        printf("chid num : %d\n", num);
     }
 
-    for(int i = 0; i < 5; ++i)
-        {
-            printf("i : %d, pid : %d\n",i,getpid());  //证明父子进程是交替进行的
-            sleep(1);
-        }
+    for (int i = 0; i < 5; ++i)
+    {
+        printf("i : %d, pid : %d\n", i, getpid()); // 证明父子进程是交替进行的
+        sleep(1);
+    }
     return 0;
 }
 

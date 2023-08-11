@@ -13,29 +13,32 @@ int execl(const char *path, const char *arg, ...);
         只有调用失败时候，才会有返回值，返回-1并设置errno
 */
 
-#include<unistd.h>
-#include<stdio.h>  
+#include <unistd.h>
+#include <stdio.h>
 int main()
 {
-    //创建一个子进程，在子进程执行exec函数族中的函数
+    // 创建一个子进程，在子进程执行exec函数族中的函数
     pid_t pid = fork();
-    //父进程
-    if(pid > 0){
-        //父进程
-        printf("I am parent process, pid : %d\n",getpid());
-    }else if(pid == 0){
-        //子进程
-        // execl("hello","hello",NULL);
-        execl("/bin/ps","ps","aux",NULL); 
-        printf("I am child process, pid = %d\n",getpid()); //这句话不会执行
+    // 父进程
+    if (pid > 0)
+    {
+        // 父进程
+        printf("I am parent process, pid : %d\n", getpid());
+    }
+    else if (pid == 0)
+    {
+        // 子进程
+        //  execl("hello","hello",NULL);
+        sleep(5);
+        execl("/bin/ps", "ps", "aux", NULL);
+        printf("I am child process, pid = %d\n", getpid()); // 子进程这句话不会执行
     }
 
-    //ps aux执行完会自动返回前台 是的后续的主进程这里不会执行 如果是执行hello那么就会执行
-    for(int i = 0; i < 3; ++i)
+    for (int i = 0; i < 3; ++i)
     {
-        printf("i = %d, pid = %d\n",i,getpid());
+        printf("i = %d, pid = %d\n", i, getpid());
     }
     printf("到底执行不执行！");
-    
+
     return 0;
 }

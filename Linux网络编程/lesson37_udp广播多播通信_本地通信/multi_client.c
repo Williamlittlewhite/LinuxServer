@@ -6,9 +6,9 @@
 
 int main()
 {
-    //1.创建一个通信的socket
-    int fd = socket(PF_INET,SOCK_DGRAM,0);
-    if(fd == -1)
+    // 1.创建一个通信的socket
+    int fd = socket(PF_INET, SOCK_DGRAM, 0);
+    if (fd == -1)
     {
         perror("socket");
         exit(-1);
@@ -21,29 +21,29 @@ int main()
     addr.sin_addr.s_addr = INADDR_ANY;
 
     int ret = bind(fd, (struct sockaddr *)&addr, sizeof addr);
-    if(ret == -1)
+    if (ret == -1)
     {
         perror("bind");
         exit(-1);
     }
-    //加入到多播组
+    // 加入到多播组
     struct ip_mreq op;
-    inet_pton(AF_INET,"239.0.0.10",&op.imr_multiaddr.s_addr);
-    op.imr_interface.s_addr = INADDR_ANY;   //因为是不同本地的ip因此用INADDR_ANY
+    inet_pton(AF_INET, "239.0.0.10", &op.imr_multiaddr.s_addr);
+    op.imr_interface.s_addr = INADDR_ANY; // 因为是不同本地的ip因此用INADDR_ANY
 
-    setsockopt(fd,IPPROTO_IP,IP_ADD_MEMBERSHIP,&op,sizeof op);
+    setsockopt(fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, &op, sizeof op);
 
-    //3.通信
+    // 3.通信
     while (1)
     {
         char buf[128];
-        //接受数据
-        int num = recvfrom(fd,buf,sizeof buf,0,NULL, NULL);
-        printf("server say : %s\n",buf);
+        // 接受数据
+        int num = recvfrom(fd, buf, sizeof buf, 0, NULL, NULL);
+        printf("server say : %s\n", buf);
         sleep(1);
     }
 
     close(fd);
-    
+
     return 0;
 }

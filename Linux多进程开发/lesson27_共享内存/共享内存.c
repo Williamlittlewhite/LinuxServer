@@ -2,7 +2,7 @@
 #include<sys/ipc.h>
 #include<sys/shm.h>
 int shmget(key_t key, size_t size, int shmflg);
-    - 功能:创建一个新的共享内存段，或者获取一个既有的共享内存段的标识。新创建的内存段中的数据都会被初始化为0
+    - 功能:创建一个新的共享内存段，或者获取一个既有的共享内存段的标识。新创建的内存段中的数据都会被初始化为 0
     - 参数:
         - key : key_t类型是一个整型，通过这个找到或者创建一个共享内存。
                 一般使用16进制表示，非0值
@@ -18,7 +18,7 @@ int shmget(key_t key, size_t size, int shmflg);
         成功: >0 返回共享内存引用的ID,后面操作共享内存都是通过这个值
 void *shmat(int shmid, const void *shmaddr, int shmflg);
     - 功能: 和当前的进程进行关联
-    - 参数: 
+    - 参数:
         - shmid: 共享内存的标识(ID),由shmget返回值获取
         - shmaddr: 申请的共享内存的起始地址,指定NULL(由内核指定)
         - shmflg: 对共享内存的操作

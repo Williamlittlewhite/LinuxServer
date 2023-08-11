@@ -47,7 +47,7 @@ int main()
     
     //注册信号捕捉,一定要在最前面
     sigaction(SIGALRM,&act,NULL);
-
+    
     struct itimerval new_value;
     
     //设置间隔的时间

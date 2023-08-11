@@ -43,14 +43,14 @@ threadpool<T>::threadpool(int thread_number, int max_requests) // 模板类的�
     {
         printf("create the %dth thread\n", i);
 
-        if (pthread_create(m_threads + i, NULL, worker, this) != 0)
+        if (pthread_create(m_threads + i, NULL, worker, this) != 0) // 创建线程出错
         // 因为静态函数只能访问静态变量，因此这里要传this给worker以使得静态函数可以访问私有成员
         {
             delete[] m_threads;
             throw std::exception();
         }
 
-        if (pthread_detach(*(m_threads + i)))
+        if (pthread_detach(*(m_threads + i))) // 分离线程失败
         {
             delete[] m_threads;
             throw std::exception();

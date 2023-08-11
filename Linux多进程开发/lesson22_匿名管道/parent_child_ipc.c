@@ -8,57 +8,57 @@
     子进程将标准输出 stdout_fileno 重定向到管道的写端  dup2()
 */
 
-#include<unistd.h>
-#include<sys/types.h>
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 int main()
 {
-    //创建一个管道,一定要在子进程之前创建
+    // 创建一个管道,一定要在子进程之前创建
     int fd[2];
     int ret = pipe(fd);
 
-    if(ret == -1)
+    if (ret == -1)
     {
         perror("pipe");
         exit(0);
     }
 
-    //创建子进程
+    // 创建子进程
     pid_t pid = fork();
-    if(pid > 0)
+    if (pid > 0)
     {
-        //父进程
-        //关闭写端
+        // 父进程
+        // 关闭写端
         close(fd[1]);
-        //从管道中读取
+        // 从管道中读取
         char buf[1024] = {0};
         int len = -1;
-        while(len = read(fd[0],buf,sizeof(buf)-1) > 0)
+        while (len = read(fd[0], buf, sizeof(buf) - 1) > 0)
         {
-            //过滤数据输出
-            printf("%s",buf);
-            memset(buf,0,1024);
+            // 过滤数据输出
+            printf("%s", buf);
+            memset(buf, 0, 1024);
         }
-        
     }
-    else if(pid == 0)
+    else if (pid == 0)
     {
-        //子进程
-        //关闭读端
+        // 子进程
+        // 关闭读端
         close(fd[0]);
 
-        //文件描述符的重定向 stdout_fileno -> fd[1]
-        dup2(fd[1],STDOUT_FILENO);
+        // 文件描述符的重定向 stdout_fileno -> fd[1]
+        dup2(fd[1], STDOUT_FILENO);
         // 执行 ps aux
-        int ret = execlp("ps","ps","aux",NULL);
-        if(ret == -1)
+        int ret = execlp("ps", "ps", "aux", NULL);
+        if (ret == -1)
             perror("execlp");
         exit(0);
     }
-    else{
+    else
+    {
         perror("fork");
         exit(0);
     }

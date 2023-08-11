@@ -40,7 +40,7 @@ int main(int argc, char **argv)
     // 获取端口号
     int port = atoi(argv[1]);
 
-    // 对SIGPIPE信号进行处理
+    // 对SIGPIPE信号进行处理，两端的网络通信中的一端断开后，如果还有另一端写数据，会产生SIGPIPE
     addsig(SIGPIPE, SIG_IGN); // SIGPIPE信号直接忽略
 
     // 创建线程池，初始化线程池
@@ -84,7 +84,7 @@ int main(int argc, char **argv)
     listen(listenfd, 8);
 
     // 创建epoll对象和事件数组
-    epoll_event events[MAX_EVENT_NUMBER];
+    epoll_event events[MAX_EVENT_NUMBER]; // 最大监听数目
     int epollfd = epoll_create(1000);
 
     // 将监听的文件描述符添加到epoll对象中
@@ -121,7 +121,7 @@ int main(int argc, char **argv)
                     close(connfd);
                     continue;
                 }
-                // 将新的客户的数据接受并且更新后，放到数组中
+                // 将新的客户端的数据接受并且更新后，放到数组中
                 users[connfd].update(connfd, client_addr);
             }
             else if (events[i].events & (EPOLLRDHUP | EPOLLHUP | EPOLLERR))
@@ -134,6 +134,7 @@ int main(int argc, char **argv)
                 if (users[sockfd].read())
                     // 一次性读完所有数据
                     pool->append(users + sockfd);
+                // 交付给工作线程去处理
                 else
                     users[sockfd].close_conn();
             }

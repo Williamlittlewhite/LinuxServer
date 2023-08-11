@@ -6,7 +6,8 @@ int setitimer(int which, const struct itimerval *new_value,struct itimerval *old
     -参数:
         -which : 定时器以什么时间计时
          ITIMER_REAL:真实时间，时间到达，发送SIGALARM信号  常用
-         ITIMER_VIRTUAL:用户时间,执行用户自己写的代码RING3级别下，0~3G虚拟内存空间时间,时间到达,发送SIGVTALARM
+         ITIMER_VIRTUAL:用户时间,执行用户自己写的代码
+         RING3级别下，0~3G虚拟内存空间时间,时间到达,发送SIGVTALARM
          内核时间表示在虚拟空间3G~4G最高RING0优先级系统调用的时间
          ITIMER_PROF:以该进程在用户态和内核态下所消耗的时间来计算,时间到达,发送SIGPROF
 
@@ -29,29 +30,29 @@ int setitimer(int which, const struct itimerval *new_value,struct itimerval *old
         成功 0
         失败 -1，设置错误号
 */
-#include<sys/time.h>
-#include<stdio.h>
-#include<stdlib.h>
-//过3秒以后，每隔2秒钟定时一次
+#include <sys/time.h>
+#include <stdio.h>
+#include <stdlib.h>
+// 过3秒以后，每隔2秒钟定时一次
 int main()
 {
     struct itimerval new_value;
-    
-    //设置间隔的时间
+
+    // 设置间隔的时间
     new_value.it_interval.tv_sec = 2;
     new_value.it_interval.tv_usec = 0;
 
-    //设置延迟的时间,3秒之后开始第一次定时
+    // 设置延迟的时间,3秒之后开始第一次定时
     new_value.it_value.tv_sec = 3;
     new_value.it_value.tv_usec = 0;
 
-    int ret = setitimer(ITIMER_REAL,&new_value,NULL); //非阻塞
+    int ret = setitimer(ITIMER_REAL, &new_value, NULL); // 非阻塞
     printf("定时器开始了...\n");
-    if(ret == -1)
+    if (ret == -1)
     {
         perror("setitimer");
         exit(0);
-    }   
+    }
 
     getchar();
     return 0;

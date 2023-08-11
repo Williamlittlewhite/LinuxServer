@@ -18,42 +18,42 @@
 
             阻塞和非阻塞：描述的是函数调用的行为。
 */
-#include<unistd.h>
-#include<fcntl.h>
-#include<stdio.h>
-#include<string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <string.h>
 int main()
 {
-    //1.复制文件描述符
-    // int fd = open("1.txt",O_RDONLY|O_CREAT,0664);
-    // int ret = fcntl(fd,F_DUPFD);
-    // printf("%d %d",fd,ret);
+    // 1.复制文件描述符
+    //  int fd = open("1.txt",O_RDONLY|O_CREAT,0664);
+    //  int ret = fcntl(fd,F_DUPFD);
+    //  printf("%d %d",fd,ret);
 
-    //2.修改或者获取文件状态的flag
-    int fd = open("1.txt",O_RDWR);
-     if(fd == -1)
+    // 2.修改或者获取文件状态的flag
+    int fd = open("1.txt", O_RDWR);
+    if (fd == -1)
     {
         perror("open");
         return -1;
     }
-    //获取文件描述符状态flag
-    int flag = fcntl(fd,F_GETFL);
-    if(flag == -1)
+    // 获取文件描述符状态flag
+    int flag = fcntl(fd, F_GETFL);
+    if (flag == -1)
     {
         perror("fcntl");
         return -1;
     }
     flag |= O_APPEND;
-    //修改文件描述符状态的flag，给flag加入O_APPEND这个标记
-    // fcntl(fd,F_SETFL,O_APPEND);//如果直接修改会覆盖
-    int ret = fcntl(fd,F_SETFL,flag);
-    if(ret == -1)
+    // 修改文件描述符状态的flag，给flag加入O_APPEND这个标记
+    //  fcntl(fd,F_SETFL,O_APPEND);//如果直接修改会覆盖
+    int ret = fcntl(fd, F_SETFL, flag);
+    if (ret == -1)
     {
         perror("fcntl");
         return -1;
     }
-    char* str = "nihao";
-    write(fd,str,strlen(str));
+    char *str = "nihao";
+    write(fd, str, strlen(str));
 
     close(fd);
     return 0;
